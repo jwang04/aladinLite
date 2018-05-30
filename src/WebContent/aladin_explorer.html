@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="UTF-8">
+<title>aladin popup</title>
+<link rel="stylesheet" href="AladinLite/aladin.css" />
+
+<link rel="stylesheet" href="codelocal/styleimports/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="codelocal/styles/basics.css">
+
+<script type="text/javascript"
+	src="codelocal/jsimports/jquery.js" charset="utf-8"></script>
+<script src="codelocal/jsimports/ui/minified/jquery-ui.js"></script>
+<script src="codelocal/javascript/public.js"></script>
+<script src="codelocal/javascript/HipsExplorer_v.js"></script>
+
+<script type="text/javascript" src="codelocal/jsimports/aladin.js" charset="utf-8"></script>
+</head>
+<body>
+	<div>
+		<input type=button 
+		onclick="ModalAladin.aladinExplorer({ target: '13:05:44.90+17:53:28.9', fov: 0.016, title:'3XMM J130544.8+175328'}, [{type: 'json', name: 'ACDS', url: 'http://xcatdb.unistra.fr/3xmmdr5//getarchesdetail/acdslinks?oid=581249378845461815&mode=aladinlite'}, {type: 'json', name: 'Photometric points', url: 'http://xcatdb.unistra.fr/3xmmdr5/getarchesxmatchpoints?oid=581249378845461815'}, {type: 'votable', name: 'Cluster components', url: 'http://xcatdb.unistra.fr/3xmmdr5/download?oid=294989349005558113'}])" value=Target></input>
+		<input type=button 
+		onclick="ModalAladin.aladinExplorer({ swarm: 'http://obs-he-lm:8888/Saada1.7/getqueryreport?query=Select%20ENTRY%20From%20*%20In%20M33&protocol=auto&format=votable', title:'NoTarget'}, [{type: 'json', name: 'ACDS', url: 'http://xcatdb.unistra.fr/3xmmdr5//getarchesdetail/acdslinks?oid=581249378845461815&mode=aladinlite'}, {type: 'json', name: 'Photometric points', url: 'http://xcatdb.unistra.fr/3xmmdr5/getarchesxmatchpoints?oid=581249378845461815'}, {type: 'votable', name: 'Cluster components', url: 'http://xcatdb.unistra.fr/3xmmdr5/download?oid=294989349005558113'}])" value=NoTarget></input>
+		<button type="button" class="btn btn-default" aria-label="Left Align">
+  <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+</button>
+	</div>
+	<div id=HipsCatalogs>
+	</div>
+	<div ><pre id=HipsCatalogsResult></pre>
+	</div>
+	<div id=HipsImages>
+	</div>
+	<div ><pre id=HipsImagesResult></pre>
+	</div>
+</body>
+<script type="text/javascript">
+$().ready(function() {
+	var he = new HipsExplorer_mVc({
+		parentDivId: "HipsCatalogs", 
+		formName: "HipsCatalogsExplorer", 
+		target: {ra: 10., dec : 32, fov: 0.5},
+		productType: "catalog",
+		handler: function(jsondata){
+			console.log("handler");
+			$("#HipsCatalogsResult").html("result catalogs " + jsondata.length + "\n");
+			for(var i=0 ; i<jsondata.length ; i++){
+				$("#HipsCatalogsResult").append(JSON.stringify(jsondata[i]) +"\n");
+			}
+		}
+	});
+	he.draw();
+	he = new HipsExplorer_mVc({
+		parentDivId: "HipsImages", 
+		formName: "HipsImagesExplorer", 
+		target: {ra: 10., dec : 32, fov: 0.5},
+		productType: "image",
+		handler: function(jsondata){
+			console.log("handler");
+			$("#HipsImagesResult").html("result images " + jsondata.length + "\n");
+			for(var i=0 ; i<jsondata.length ; i++){
+				$("#HipsImagesResult").append(jsondata[i].publisher_did + "&nbsp;" + jsondata[i].client_application +"\n");
+			}
+		}
+	});
+	he.draw();
+});
+</script>
+</html>
+

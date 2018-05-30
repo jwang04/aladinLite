@@ -1,0 +1,117 @@
+<html>
+	<head>
+		<title>AladinLiteX</title>
+		<link rel="stylesheet"
+			href="bootstrap-3.3.7/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" 
+			href="menuDemo/css/font-awesome.min.css">
+		<link rel="stylesheet" 
+			href="menuDemo/css/gooey.min.css">
+		<link rel="stylesheet" 
+			href="menuDemo/css/livedemo.css">
+		<link rel="stylesheet"
+			href="AladinLite/aladin.css" />
+		<link rel="stylesheet"
+			href="styles/aladinliteX.css" />
+		<link rel="stylesheet"
+			href="jsimports/jquery-ui-1.12.1/jquery-ui.min.css" />	
+	</head>
+	<body>
+		<!-- include Aladin Lite CSS file in the head section of your page -->
+		
+		<!-- you can skip the following line if your page already integrates the 
+			jQuery library -->
+		<script type="text/javascript" src="jsimports/jquery-1.9.1.js"
+			charset="utf-8"></script>
+		<script type="text/javascript" src="jsimports/jquery-ui-1.12.1/jquery-ui.min.js"
+			charset="utf-8"></script>	
+
+		<!-- insert this snippet where you want Aladin Lite viewer to appear and 
+			after the loading of jQuery -->
+		<div id="aladin-lite-div" style="width:415px;height:415px;padding:5px;"></div>
+		<i style="position:absolute;left:30px;top:815px">Position: </i>
+		<input id="input_target" style="position:absolute;left:90px;top:815px;"></input>
+		<button title="add target" style="position:absolute;top:815px;left:280px;" onclick="AladinLiteX_mVc.displayTarget();">target</button>
+		
+ 		<script type="text/javascript"
+			src="codelocal/javascript/Segment.js"
+			charset="utf-8"></script>
+		<script type="text/javascript"
+			src="AladinLite/aladin.js"
+			charset="utf-8"></script>
+		<script type="text/javascript"
+			src="AladinLite/AladinUpdate.js"
+			charset="utf-8"></script>
+		<script type="text/javascript"
+			src="javascript/LibraryMap.js"></script>
+		<script type="text/javascript"
+			src="javascript/MasterResource.js"></script>
+		<script type="text/javascript"
+			src="javascript/AladinLiteView.js"></script>
+		<script type="text/javascript"
+			src="javascript/AladinLite_v.js"></script>
+		<script type="text/javascript"
+			src="javascript/AladinLite_c.js"></script>
+		<script type="text/javascript"
+			src="javascript/Historique_m.js"></script>
+		<script type="text/javascript"
+			src="javascript/Historique_v.js"></script>	
+		<script type="text/javascript"
+			src="javascript/RegionEditor_v.js"></script>
+	    <script type="text/javascript"
+			src="javascript/RegionEditor_m.js"></script>
+		<script type="text/javascript"
+			src="javascript/RegionEditor_c.js"></script>
+		<script type="text/javascript"
+			src="javascript/HipsSelector_m.js"></script>
+		<script type="text/javascript"
+			src="javascript/HipsSelector_v.js"></script>
+		
+	</body>
+	<script type="text/javascript">
+    $().ready(function() {
+    	AladinLiteX_mVc.init(
+    	{
+    		parentDivId: "aladin-lite-div",
+    	    defaultView: {
+    	        defaultSurvey: "ESAVO/P/XMM/EPIC-RGB",
+    	        position: "M51",
+    	        defaultFov: "0.9"
+    	    },
+    	    controllers: {
+    		      historic: {
+    		      },
+    	     	  regionEditor: {  
+    	     	  },
+    	     	  hipsSelector: {
+    	     	  }
+    	    },
+    	    masterResource: {
+    	    	url : 'http://saada:8080/ThreeXMMdr5/getqueryreport?query=Select%20ENTRY%20From%20EnhancedEntry%20In%20Enhanced%0AWherePosition%20%7B%0A%20%20%20%20isInCircle(%22{$ra}%20{$dec}%22%2C%20{$fov}%2C%20-%2C%20ICRS)%0A%7D&format={$format}',
+				radiusUnit : 'arcmin',
+				format : 'votable',
+				label : "Enhanced XMM Catalogue",
+				description: "Texte plus complet qui donne plus d'informations",
+				associe_data : {name:'',
+					url : 'http://xcatdb.unistra.fr/3xmmdr5//getarchesdetail/acdslinks?oid={$id}&mode=aladinlite',
+					id : '',
+					format : {},
+    	    		label:"ACDS Sources",
+    				description: "Texte plus complet qui donne plus d'informations"
+				},
+				handler : {
+					label: "Show Detail",
+					description: "Texte plus complet qui donne plus d'informations",
+					callBack: function(){
+						//console.log(this.label);
+						
+					}	
+					
+					/*window.open("http://xcatdb.unistra.fr/3xmmdr7/getgallery?oid="+data.oidsaada);*/
+					//console.log(data)
+				}	
+    	    }
+    	})
+    });
+    </script>
+</html>

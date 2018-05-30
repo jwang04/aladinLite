@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>aladinlite</title>
+<link rel="stylesheet"
+	href="AladinLite/aladin.css" />
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js" charset="utf-8"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script type="text/javascript"
+	src="AladinLite/aladin.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="codelocal/javascript/Segment.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="javascript/RegionEditor_m.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="codelocal/javascript/r_e_v.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="javascript/RegionEditor_c.js"
+	charset="utf-8"></script>
+</head>
+<body>
+	<div id="aladin-lite-div" style="width: 400px; height: 400px"></div>
+</body>
+
+<script type="text/javascript">
+$().ready(function() {
+	var points = {type: "array", value: [84.24901652054093, -5.640882748140112,83.34451837951998, -6.103216341255678,83.60897420186223, -4.553808802262613]};
+	$(document.documentElement).append('<div id="aladin-lite-div" style="width: 400px; height: 400px"></div>');
+	regionEditor = new RegionEditor_mVc  ("aladin-lite-div"
+			, function(data){ if( data.userAction ) alert(JSON.stringify(data));}
+			, points); 
+	regionEditor.init();
+	regionEditor.setInitialValue(points);
+
+});
+
+</script>
+</html>
